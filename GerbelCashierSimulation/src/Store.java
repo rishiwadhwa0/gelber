@@ -1,9 +1,9 @@
 public class Store {
-    final int t0;
+    int currentTime;
     Register[] registers = null;
 
-    public Store(int setT0, int setNumRegisters) {
-        t0 = setT0;
+    public Store(int setCurrentTime, int setNumRegisters) {
+        currentTime = setCurrentTime;
         registers = new Register[setNumRegisters];
         for (int i = 0; i < registers.length; i++) {
             int minutesPerItem = i != registers.length-1 ? 1 : 2;
@@ -54,5 +54,29 @@ public class Store {
                 getRegisterWithLastCustomerLeastItems().assignCustomer(c);
                 break;
         }
+    }
+
+    public void updateFrontCustomersIfFinished() {
+        for (Register r : registers) {
+            Customer frontCustomer = r.getFrontCustomer();
+            if (frontCustomer.serviceTime + r.getMinutesPerItem()*frontCustomer.numItems == currentTime) {
+                r.removeFrontCustomer();
+                Customer newFrontCustomer = r.getFrontCustomer();
+                if (newFrontCustomer != null) {
+                    assert(newFrontCustomer.serviceTime == null);
+                    newFrontCustomer.setServiceTime(currentTime);
+                }
+            }
+        }
+    }
+
+    public void addMinute() {
+        currentTime += 1;
+        updateFrontCustomersIfFinished();
+    }
+
+    public boolean areAllRegistersEmpty() {
+        for (Register r : registers) { if (r.getLineSize() > 0) { return false; } }
+        return true;
     }
 }

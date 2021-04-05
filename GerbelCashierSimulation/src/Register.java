@@ -6,11 +6,15 @@ public class Register {
     LinkedList<Customer> line = new LinkedList<>();;
 
     public Register(int setId, int setMinutesPerItem) {
-        this.id = setId;
-        this.minutesPerItem = setMinutesPerItem;
+        id = setId;
+        minutesPerItem = setMinutesPerItem;
     }
 
+    public String toString() { return line.toString(); }
+
     public int getId() { return id; }
+
+    public int getMinutesPerItem() { return minutesPerItem; }
 
     public void assignCustomer(Customer c) { line.addLast(c); }
 
@@ -22,5 +26,5 @@ public class Register {
 
     public int getLineSize() { return line.size(); }
 
-    public LinkedList getLine() { return line; }
+    public LinkedList<Customer> getLine() { return line; }
 }

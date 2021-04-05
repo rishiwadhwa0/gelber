@@ -4,11 +4,18 @@ public class Customer {
     final int arrivalTime;
     final int numItems;
 
-    public Customer(int setCustomerID, char type, int setArrivalTime, int setNumItems) {
-        this.id = setCustomerID;
-        this.type = type;
-        this.arrivalTime = setArrivalTime;
-        this.numItems = setNumItems;
+    Integer serviceTime;
+
+    public Customer(int setCustomerID, char setType, int setArrivalTime, int setNumItems) {
+        id = setCustomerID;
+        type = setType;
+        arrivalTime = setArrivalTime;
+        numItems = setNumItems;
+        serviceTime = null;
+    }
+
+    public void setServiceTime(int setServiceTime) {
+        serviceTime = setServiceTime;
     }
 
     public String toString() {
