@@ -2,8 +2,9 @@ public class Store {
     int currentTime;
     Register[] registers = null;
 
-    public Store(int setCurrentTime, int setNumRegisters) {
+    public Store(int setCurrentTime, int setNumRegisters) throws IllegalArgumentException {
         currentTime = setCurrentTime;
+        if (setNumRegisters <= 0) { throw new IllegalArgumentException("Store can't have <= 0 registers."); }
         registers = new Register[setNumRegisters];
         for (int i = 0; i < registers.length; i++) {
             int minutesPerItem = i != registers.length-1 ? 1 : 2;
@@ -16,7 +17,9 @@ public class Store {
     }
 
     public Register getRegister(int registerId) throws IllegalArgumentException {
-        if (registerId <= 0 || registerId > registers.length) { throw new IllegalArgumentException(); }
+        if (registerId <= 0 || registerId > registers.length) {
+            throw new IllegalArgumentException("Register ID out of bounds. Note that registers IDs start from 1.");
+        }
         return registers[registerId-1];
     }
 
@@ -45,7 +48,7 @@ public class Store {
         return minRegister;
     }
 
-    public void addCustomer(Customer c) {
+    public void addCustomer(Customer c) throws IllegalArgumentException {
         switch (c.type) {
             case 'A':
                 getRegisterWithShortestLine().assignCustomer(c);
@@ -53,6 +56,8 @@ public class Store {
             case 'B':
                 getRegisterWithLastCustomerLeastItems().assignCustomer(c);
                 break;
+            default:
+                throw new IllegalArgumentException("Customer type other than A or B given");
         }
     }
 

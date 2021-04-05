@@ -5,8 +5,9 @@ public class Register {
     final int minutesPerItem;
     LinkedList<Customer> line = new LinkedList<>();;
 
-    public Register(int setId, int setMinutesPerItem) {
+    public Register(int setId, int setMinutesPerItem) throws IllegalArgumentException {
         id = setId;
+        if (setMinutesPerItem <= 0) { throw new IllegalArgumentException("Cashier cannot be that quick."); }
         minutesPerItem = setMinutesPerItem;
     }
 

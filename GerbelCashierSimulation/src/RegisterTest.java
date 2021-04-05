@@ -54,4 +54,13 @@ class RegisterTest {
     void getLineSize() {
         assertEquals(7, r.getLineSize());
     }
+
+    @Test
+    void registerWithQuickCashier() {
+        try { Register r = new Register(7, 0); assert(false); }
+        catch (IllegalArgumentException iae) { assert(true); }
+
+        try { Register r = new Register(7, -1); assert(false); }
+        catch (IllegalArgumentException iae) { assert(true); }
+    }
 }

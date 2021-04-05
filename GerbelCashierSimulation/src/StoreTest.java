@@ -118,5 +118,37 @@ class StoreTest {
         s.addCustomer(new Customer(1, 'A', 7, 7)); // reg 1
         assertEquals(false, s.areAllRegistersEmpty());
     }
+
+    @Test
+    void addCustomerTypeNotAOrB() {
+        Store s = new Store(0, 3);
+        try {
+            s.addCustomer(new Customer(1, 'C', 7, 7));
+            assert(false);
+        } catch (IllegalArgumentException iae) { assert(true); }
+    }
+
+    @Test
+    void getRegisterOutOfBounds() {
+        Store s = new Store(0, 3);
+        s.getRegister(1);
+        s.getRegister(2);
+        s.getRegister(3);
+
+        try { s.getRegister(0); assert(false); }
+        catch (IllegalArgumentException iae) { assert(true); }
+
+        try { s.getRegister(4); assert(false); }
+        catch (IllegalArgumentException iae) { assert(true); }
+    }
+
+    @Test
+    void storeWithNonPositiveNumRegisters() {
+        try { Store s = new Store(7, 0); assert(false); }
+        catch (IllegalArgumentException iae) { assert (true); }
+
+        try { Store s = new Store(7, -1); assert(false); }
+        catch (IllegalArgumentException iae) { assert (true); }
+    }
 }
 

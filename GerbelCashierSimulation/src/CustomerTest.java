@@ -11,4 +11,17 @@ class CustomerTest {
         assertEquals(7, c.arrivalTime);
         assertEquals(7, c.numItems);
     }
+
+    @Test
+    void customerWithNonPositiveNumItems() {
+        try {
+            Customer c = new Customer(7, 'A', 7, 0);
+            assert (false);
+        } catch (IllegalArgumentException iae) { assert(true); }
+
+        try {
+            Customer c = new Customer(7, 'A', 7, -1);
+            assert (false);
+        } catch (IllegalArgumentException iae) { assert(true); }
+    }
 }
