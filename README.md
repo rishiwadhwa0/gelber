@@ -10,7 +10,7 @@
 - The Register class maintains its own id, minutesPerItem, and a one LinkedList representing the line of its customers.
 - The Customer class maintains attributes that describe a customer. Most notably, it overrides the compareTo() method, which allows it to be compared with other Customers. This is very important because it allows me to add Customers to a Minimum Heap (i.e. Minimum Priority Queue).
 
-The Main class parses the input file, creates all the Customers and adds them to a Minimum Heap, and then uses Store.addCustomer() and Store.addMinute() to run the simulation.
+The Main class parses the input file, creates all the Customers and adds them to a Minimum Heap, and then uses Store.addCustomer() to run the simulation as it pops Customers off the Minimum Heap.
 
 I have tried my best to include as much error handling as possible. 
 
@@ -18,8 +18,8 @@ I have also written and ran unit tests along my development process.
 
 
 ## Assumptions
-1. For the same times T=t, Customers are processed one at a time.
-2. For the same times T=t, a Customer that is processed earlier CAN influence a customer processed later.
+1. For Customers that arrive at the same time T=t, they are assigned to registers one-by-one.
+2. It follows that if two customers arrive at the same time T=t, the customer that is processed first can influence the second's assignment.
 
 ## Simulation
 ### To Compile and Run Simulation
