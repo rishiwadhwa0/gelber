@@ -3,10 +3,11 @@
 ## Requirements
 1. Java
 
+
 ## Description
 3 Objects: Store, Register, and Customer
-- Most of the decision making is delegated to the Store Class, which maintains the current time and an arrray of Registers
-- The Register class maintains its own id, minutesPerItem, and a one LinkedList representing the line of its customers
+- Most of the decision making is delegated to the Store Class, which maintains the current time and an arrray of Registers.
+- The Register class maintains its own id, minutesPerItem, and a one LinkedList representing the line of its customers.
 - The Customer class maintains attributes that describe a customer. Most notably, it overrides the compareTo() method, which allows it to be compared with other Customers. This is very important because it allows me to add Customers to a Minimum Heap (i.e. Minimum Priority Queue).
 
 The Main class parses the input file, creates all the Customers and adds them to a Minimum Heap, and then uses Store.addCustomer() and Store.addMinute() to run the simulation.
@@ -15,6 +16,10 @@ I have tried my best to include as much error handling as possible.
 
 I have also written and ran unit tests along my development process.
 
+
+## Assumptions
+1. For the same times T=t, Customers are processed one at a time.
+2. For the same times T=t, a Customer that is processed earlier CAN influence a customer processed later.
 
 ## Simulation
 ### To Compile and Run Simulation
