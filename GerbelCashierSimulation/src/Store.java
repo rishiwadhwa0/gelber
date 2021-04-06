@@ -49,6 +49,10 @@ public class Store {
     }
 
     public void addCustomer(Customer c) throws IllegalArgumentException {
+        if (c.arrivalTime < currentTime) { throw new IllegalArgumentException("Customer order error."); }
+        if (c.arrivalTime > currentTime) {
+            while (currentTime < c.arrivalTime) { addMinute(); } // advance simulation to this customer's arrival time
+        }
         switch (c.type) {
             case 'A':
                 getRegisterWithShortestLine().assignCustomer(c);
@@ -59,12 +63,13 @@ public class Store {
             default:
                 throw new IllegalArgumentException("Customer type other than A or B given");
         }
+        startServicingFrontCustomersIfNotAlready(); // if c is the first customer in a register's line
     }
 
     public void updateFrontCustomersIfFinished() {
         for (Register r : registers) {
             Customer frontCustomer = r.getFrontCustomer();
-            if (frontCustomer.serviceTime + r.getMinutesPerItem()*frontCustomer.numItems == currentTime) {
+            if (frontCustomer != null && frontCustomer.serviceTime + r.getMinutesPerItem()*frontCustomer.numItems == currentTime) {
                 r.removeFrontCustomer();
                 Customer newFrontCustomer = r.getFrontCustomer();
                 if (newFrontCustomer != null) {
@@ -72,6 +77,13 @@ public class Store {
                     newFrontCustomer.setServiceTime(currentTime);
                 }
             }
+        }
+    }
+
+    public void startServicingFrontCustomersIfNotAlready() {
+        for (Register r : registers) {
+            Customer frontCustomer = r.getFrontCustomer();
+            if (frontCustomer != null && frontCustomer.serviceTime == null) { frontCustomer.serviceTime = currentTime; }
         }
     }
 
@@ -84,4 +96,6 @@ public class Store {
         for (Register r : registers) { if (r.getLineSize() > 0) { return false; } }
         return true;
     }
+
+    public int getCurrentTime() { return currentTime; }
 }
